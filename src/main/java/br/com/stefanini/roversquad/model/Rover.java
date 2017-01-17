@@ -8,16 +8,21 @@ import br.com.stefanini.roversquad.exceptions.CommandParseException;
 import br.com.stefanini.roversquad.exceptions.DirectionException;
 import br.com.stefanini.roversquad.exceptions.RegisterException;
 
+/**
+ * The model class for the Rover
+ * @author luizhenriquesantana
+ *
+ */
 public class Rover extends Observable {
 	
 	private Direction direction;
 
 	private Position  position;
 
-	protected Rover(Position p, Direction d) {
+	protected Rover(Position pos, Direction dir) {
 		super();
-		position = p;
-		direction = d;
+		position = pos;
+		direction = dir;
 	}
 
 	public Rover(String in) {
@@ -36,7 +41,6 @@ public class Rover extends Observable {
 			try {
 				d = Direction.parse(tokens[2]);
 			} catch (CommandParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			setDirection(d);

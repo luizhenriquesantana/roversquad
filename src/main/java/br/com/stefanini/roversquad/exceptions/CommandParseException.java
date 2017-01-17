@@ -4,6 +4,7 @@ import java.text.ParseException;
 
 /**
  * Class to throw the parse exceptions.
+ * 
  * @author luizhenriquesantana
  *
  */
@@ -14,5 +15,5 @@ public class CommandParseException extends ParseException {
 	public CommandParseException(String string, Integer position) {
 		super(string, position);
 	}
-	
+
 }

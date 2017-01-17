@@ -16,77 +16,69 @@ import br.com.stefanini.roversquad.model.Rover;
 
 public class Exploration {
 
-	public static List<String> coordinates(String filePath) throws RegisterException, DirectionException{
+	private static BufferedReader bufferedReader;
+
+	public static List<String> coordinates(String filePath) throws RegisterException, DirectionException {
 		List<String> coordinates = new ArrayList<String>();
-		
-		try{
+
+		try {
 			FileReader fr = new FileReader(filePath);
-			BufferedReader bufferedReader = new BufferedReader(fr);
-            
+			bufferedReader = new BufferedReader(fr);
+
 			Integer line = 0;
-			
+
 			String strLine = bufferedReader.readLine();
-            
+
 			Plateau pl = null;
 			Rover r = null;
 			Command[] c = null;
-			
-			List<Rover> rovers = new ArrayList<>();
-			List<Command[]> commands = new ArrayList<Command[]>();
-			
-			
-            
-//          Read File line by line
-            while (strLine !=null){
-                
-                
-                if(strLine != null){ //the last readLine returns null
-                	
-                	if(line == 0){
-                		pl = new Plateau(strLine);
-                		
-                	}else{
-                		if(0!= line%2){
-                			
-                			if(!strLine.contains("N") 
-                					&& !strLine.contains("S")
-                					&& !strLine.contains("E")
-                					&& !strLine.contains("W")){
-                				throw new CommandParseException("The Rover Line does not contain direction", 0);
-                			}
-                			
-                			//rover
-                			r = new Rover(strLine);
-                			pl.register(r);
-                		}else{
-//                			command
-                			c = Command.parse(strLine);
-                			if(r != null){
-                				for(Command cmd : c){
-                					r.control(cmd);
-                				}
-                				coordinates.add(r.getCoordinate());
-                			}
-                		}
-                	}
-                }
-                
-                strLine = bufferedReader.readLine();
-                line++;
-            }
-            
-            
-            bufferedReader.close();
-			
-			
-		}catch (FileNotFoundException e) {
+
+			// Read File line by line
+			while (strLine != null) {
+
+				if (strLine != null) { // the last readLine returns null
+
+					if (line == 0) {
+						pl = new Plateau(strLine);
+
+					} else {
+						if (0 != line % 2) {
+
+							if (!strLine.contains("N") && !strLine.contains("S") && !strLine.contains("E")
+									&& !strLine.contains("W")) {
+								throw new CommandParseException("The Rover Line does not contain direction", 0);
+							}
+
+							// rover
+							r = new Rover(strLine);
+							pl.register(r);
+						} else {
+							// command
+							c = Command.parse(strLine);
+							if (r != null) {
+								for (Command cmd : c) {
+									r.control(cmd);
+								}
+								coordinates.add(r.getCoordinate());
+							}
+						}
+					}
+				}
+
+				strLine = bufferedReader.readLine();
+				line++;
+			}
+
+			bufferedReader.close();
+
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		}catch (IOException e) {
-            e.printStackTrace();
-        } catch (CommandParseException e) {
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (CommandParseException e) {
 			e.printStackTrace();
 		}
-		
+
 		return coordinates;
 	}
 }

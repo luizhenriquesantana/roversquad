@@ -3,9 +3,11 @@ package br.com.stefanini.roversquad.model;
 import br.com.stefanini.roversquad.enums.Direction;
 
 public class Position {
+
 	public int x;
+
 	public int y;
-	
+
 	Position(int x, int y) {
 		this.x = x;
 		this.y = y;
@@ -27,12 +29,7 @@ public class Position {
 			break;
 		}
 	}
-
-//	@Override
-//	public String toString() {
-//		return "[x=" + x + ", y=" + y + "]";
-//	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -41,10 +38,10 @@ public class Position {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Position other = (Position) obj;
-		if (x != other.x)
+		Position anotherPosition = (Position) obj;
+		if (x != anotherPosition.x)
 			return false;
-		if (y != other.y)
+		if (y != anotherPosition.y)
 			return false;
 		return true;
 	}

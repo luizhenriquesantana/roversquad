@@ -6,18 +6,24 @@ import java.util.Observer;
 
 import br.com.stefanini.roversquad.exceptions.RegisterException;
 
+/**
+ * Class for the plateau
+ * 
+ * @author luizhenriquesantana
+ *
+ */
 public class Plateau implements Observer {
-	
+
 	private Position upCornerRight;
 
-	private LinkedList<Rover> vehicles;
+	private LinkedList<Rover> rovers;
 
 	public Plateau(String in) {
-			upCornerRight = parse(in);
-			if ((upCornerRight.x < 0) || (upCornerRight.y < 0)) {
-				throw new RuntimeException("Plateau information is incorrect!");
-			}
-			vehicles = new LinkedList<Rover>();
+		upCornerRight = parse(in);
+		if ((upCornerRight.x < 0) || (upCornerRight.y < 0)) {
+			throw new RuntimeException("Plateau information is incorrect!");
+		}
+		rovers = new LinkedList<Rover>();
 	}
 
 	public static Position parse(String in) {
@@ -31,30 +37,16 @@ public class Plateau implements Observer {
 	}
 
 	public void register(final Rover current) throws RegisterException {
-		vehicles.add(current);
+		rovers.add(current);
 		current.addObserver(this);
 		check(current);
 	}
 
-//	public void update(Observable o, Object arg) {
-//		if (o instanceof Rover) {
-//			Rover changed = (Rover) o;
-//			try {
-//				check(changed);
-//			} catch (RegisterException e) {
-//				if (arg instanceof RegisterException.Wrapper) {
-//					RegisterException.Wrapper reporter = (RegisterException.Wrapper) arg;
-//					reporter.set(e);
-//				}
-//			}
-//		}
-//	}
-
 	private void check(Rover current) throws RegisterException {
-		if (! isInside(current.getPosition())) {
+		if (!isInside(current.getPosition())) {
 			throw new RegisterException("The vehicle of position " + current.getPosition() + "is out of the Plateau!");
 		}
-		for (Rover other : vehicles) {
+		for (Rover other : rovers) {
 			if ((current != other) && (current.getPosition().equals(other.getPosition()))) {
 				throw new RegisterException("Problem with vehicles " + current.getPosition());
 			}
@@ -62,12 +54,11 @@ public class Plateau implements Observer {
 	}
 
 	private boolean isInside(final Position in) {
-		return (in.x >= 0) && (in.x <= upCornerRight.x) &&
-			   (in.y >= 0) && (in.y <= upCornerRight.y);
+		return (in.x >= 0) && (in.x <= upCornerRight.x) && (in.y >= 0) && (in.y <= upCornerRight.y);
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
-		
+
 	}
 }

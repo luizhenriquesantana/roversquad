@@ -4,9 +4,7 @@ import br.com.stefanini.roversquad.exceptions.CommandParseException;
 
 public enum Command {
 
-	TURN_LEFT,
-	TURN_RIGHT,
-	MOVE_ON;
+	TURN_LEFT, TURN_RIGHT, MOVE_ON;
 
 	public static Command[] parse(String str) throws CommandParseException {
 		final int size = str.length();
@@ -23,7 +21,8 @@ public enum Command {
 				command[idx] = MOVE_ON;
 				break;
 			default:
-				throw new CommandParseException("An error ocurred when the application tried run the parse at position", idx);
+				throw new CommandParseException("An error ocurred when the application tried run the parse at position",
+						idx);
 			}
 		}
 		return command;
