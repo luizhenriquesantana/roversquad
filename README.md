@@ -4,4 +4,4 @@
 
 2-Como a descricao do exercicio dava a enteder que a primeira linha é sempre o planalto, escrevi o programa considerando que um arquivo poder conter múltiplas linhas de robôs e instruções.
 
-3-Em caso de dúvidas, não exite em me contactar. 
+3-Em caso de dúvidas, não hesite em me contactar. 
